@@ -31,13 +31,14 @@ def coreference_resolution():
     res = xmltodict.parse(
         xml_generator_client.generate_xml(text, xml_file_path))
 
+    markable_data = coref_client.get_markable_data(xml_file_path)
     markable_clusters = coref_client.get_markable_clusters(
         xml_file_path, False)
 
     for phrase in res['data']['sentence']['phrase']:
         if '@id' in phrase:
             phrase['is_singleton'] = int(
-                markable_clusters[int(phrase['@id'])]['is_singleton'])
+                markable_data[int(phrase['@id'])]['is_singleton'])
 
     os.remove(xml_file_path)
 
