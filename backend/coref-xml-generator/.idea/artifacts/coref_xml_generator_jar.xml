@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="coref-xml-generator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/coref_xml_generator_jar</output-path>
+    <root id="archive" name="coref-xml-generator.jar">
+      <element id="module-output" name="coref-xml-generator" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/weka.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/InaNLP.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/ipostagger.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/dom4j-2.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jaxen-1.2.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
