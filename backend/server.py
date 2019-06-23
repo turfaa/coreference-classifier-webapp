@@ -29,7 +29,7 @@ def home():
 def coreference_resolution():
     data: Dict = dict_to_snake_cased_key(request.get_json(force=True))
     text: str = data['text']
-    use_singleton_classifier: str = data['use_singleton_classifier']
+    use_singleton_classifier: bool = data['use_singleton_classifier']
 
     xml_file_path = f'tmp/{len(os.listdir("tmp"))}.xml'
     res = xmltodict.parse(
@@ -37,7 +37,7 @@ def coreference_resolution():
 
     markable_data = coref_client.get_markable_data(xml_file_path)
     markable_clusters = coref_client.get_markable_clusters(
-        xml_file_path, False)
+        xml_file_path, use_singleton_classifier)
 
     if use_singleton_classifier:
         for phrase in res['data']['sentence']['phrase']:
