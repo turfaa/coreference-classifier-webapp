@@ -3,6 +3,7 @@ from typing import Dict
 
 import xmltodict
 from flask import Flask, request
+from flask_cors import CORS
 from flask_json import FlaskJSON, as_json
 
 import config
@@ -11,6 +12,7 @@ from utils import dict_to_camel_cased_key, dict_to_snake_cased_key
 from xml_generator_client import XMLGeneratorClient
 
 app = Flask(__name__)
+CORS(app)
 json = FlaskJSON(app)
 
 xml_generator_client = XMLGeneratorClient(config.XML_GENERATOR_JAR_PATH)
