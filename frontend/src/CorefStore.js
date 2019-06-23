@@ -11,12 +11,15 @@ export class CorefStore {
     this.apiClient = new ApiClient(baseApi);
   }
 
-  async getMarkableClusters(text) {
+  async getMarkableClusters(text, useSingletonClassifier) {
     this.loading = true;
     this.error = null;
 
     try {
-      const ret = await this.apiClient.getMarkableClusters(text);
+      const ret = await this.apiClient.getMarkableClusters(
+        text,
+        useSingletonClassifier
+      );
       ret.data.data.sentence.phrase = ret.data.data.sentence.phrase.map(
         phrase => ({
           ...phrase,

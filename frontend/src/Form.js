@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import {DEFAULT_TEXT} from './constants';
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
+import { DEFAULT_TEXT } from "./constants";
 
-export default function  Form({onSubmit}) {
+export default function Form({ onSubmit }) {
   const [value, changeValue] = useState(DEFAULT_TEXT);
+  const [useSingletonClassifier, changeUseSingletonClassifier] = useState(true);
   const classes = useStyles();
 
   return (
@@ -21,23 +24,41 @@ export default function  Form({onSubmit}) {
         fullWidth
         autoFocus
       />
-      
-      <Button variant="contained" className={classes.button} onClick={() => onSubmit(value)}>
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={useSingletonClassifier}
+            onChange={event =>
+              changeUseSingletonClassifier(event.target.checked)
+            }
+            color="primary"
+          />
+        }
+        label="Use Singleton Classifier"
+      />
+
+      <Button
+        variant="contained"
+        className={classes.button}
+        onClick={() => onSubmit(value, useSingletonClassifier)}
+      >
         Get Markable Clusters
       </Button>
     </div>
-  )
+  );
 }
 
 const useStyles = makeStyles(theme => ({
   container: {
-    width: '100%'
+    display: "flex",
+    flexDirection: "column"
   },
   textField: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   button: {
-    margin: theme.spacing(1),
-  },
+    margin: theme.spacing(1)
+  }
 }));

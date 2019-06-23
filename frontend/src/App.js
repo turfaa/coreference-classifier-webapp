@@ -18,7 +18,11 @@ export default function App() {
 
       <div className={classes.content}>
         <div className={classes.flex1}>
-          <Form onSubmit={value => corefStore.getMarkableClusters(value)} />
+          <Form
+            onSubmit={(value, useSingletonClassifier) =>
+              corefStore.getMarkableClusters(value, useSingletonClassifier)
+            }
+          />
         </div>
         <div className={classes.flex1}>
           <Result

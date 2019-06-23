@@ -6,7 +6,10 @@ export default class ApiClient {
     this.baseApi = baseApi;
   }
 
-  async getMarkableClusters(text) {
-    return axios.post(`${this.baseApi}/generate-markable-clusters`, { text });
+  async getMarkableClusters(text, useSingletonClassifier) {
+    return axios.post(`${this.baseApi}/generate-markable-clusters`, {
+      text,
+      useSingletonClassifier
+    });
   }
 }
