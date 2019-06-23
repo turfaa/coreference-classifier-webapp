@@ -8,7 +8,7 @@ from flask_json import FlaskJSON, as_json
 
 import config
 from coref_client import CorefClient
-from utils import dict_to_camel_cased_key, dict_to_snake_cased_key
+from helper import dict_to_camel_cased_key, dict_to_snake_cased_key
 from xml_generator_client import XMLGeneratorClient
 
 app = Flask(__name__)
