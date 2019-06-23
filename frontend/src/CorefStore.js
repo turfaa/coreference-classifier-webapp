@@ -1,6 +1,6 @@
-import {observable} from 'mobx'
-import ApiClient from './ApiClient';
-import {BASE_API} from './constants';
+import { observable } from "mobx";
+import ApiClient from "./ApiClient";
+import { BASE_API } from "./constants";
 
 export class CorefStore {
   @observable loading = false;
@@ -17,17 +17,25 @@ export class CorefStore {
 
     try {
       const ret = await this.apiClient.getMarkableClusters(text);
-      ret.data.data.sentence.phrase = ret.data.data.sentence.phrase.map(phrase => ({
-        ...phrase, 
-        '#text': phrase['#text'].split(' ').map(word => word.split('\\').slice(0, -1).join('\\')).join(' ')
-      }));
-      
+      ret.data.data.sentence.phrase = ret.data.data.sentence.phrase.map(
+        phrase => ({
+          ...phrase,
+          "#text": phrase["#text"]
+            .split(" ")
+            .map(word =>
+              word
+                .split("\\")
+                .slice(0, -1)
+                .join("\\")
+            )
+            .join(" ")
+        })
+      );
+
       this.result = ret.data;
-    }
-    catch (err) {
+    } catch (err) {
       this.error = err;
-    }
-    finally {
+    } finally {
       this.loading = false;
     }
   }

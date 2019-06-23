@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {BASE_API} from './constants';
+import axios from "axios";
+import { BASE_API } from "./constants";
 
 export default class ApiClient {
   constructor(baseApi = BASE_API) {
@@ -7,6 +7,6 @@ export default class ApiClient {
   }
 
   async getMarkableClusters(text) {
-    return axios.post(`${this.baseApi}/generate-markable-clusters`, {text});
+    return axios.post(`${this.baseApi}/generate-markable-clusters`, { text });
   }
 }

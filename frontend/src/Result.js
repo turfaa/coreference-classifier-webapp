@@ -1,10 +1,10 @@
-import React from 'react';
-import {useObserver} from 'mobx-react-lite';
-import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { useObserver } from "mobx-react-lite";
+import React from "react";
 
-export default function Result({loading, error, result}) {
+export default function Result({ loading, error, result }) {
   const classes = useStyles();
 
   const isError = !!error;
@@ -12,7 +12,11 @@ export default function Result({loading, error, result}) {
   return useObserver(() => (
     <div className={classes.container}>
       {loading && <CircularProgress className={classes.progress} />}
-      {!loading && isError && <Typography color="secondary" align="center">Terdapat Kesalahan</Typography>}
+      {!loading && isError && (
+        <Typography color="secondary" align="center">
+          Terdapat Kesalahan
+        </Typography>
+      )}
       {!loading && !isError && !!result && (
         <React.Fragment>
           <div className={classes.section}>
@@ -23,9 +27,12 @@ export default function Result({loading, error, result}) {
               </React.Fragment>
             ))}
           </div>
-          
+
           <div className={classes.section}>
-            <Clusters clusters={result.result} phrases={result.data.sentence.phrase} />
+            <Clusters
+              clusters={result.result}
+              phrases={result.data.sentence.phrase}
+            />
           </div>
 
           <div className={classes.section}>
@@ -33,15 +40,17 @@ export default function Result({loading, error, result}) {
             <Typography color="primary">Non-singleton (Predicted)</Typography>
             <Typography color="secondary">Singleton (Predicted)</Typography>
           </div>
-
         </React.Fragment>
       )}
     </div>
   ));
 }
 
-function Clusters({clusters, phrases}) {
-  const phraseById = phrases.reduce((ret, now) => {ret[Number(now['@id'])] = now; return ret;}, {});
+function Clusters({ clusters, phrases }) {
+  const phraseById = phrases.reduce((ret, now) => {
+    ret[Number(now["@id"])] = now;
+    return ret;
+  }, {});
 
   return (
     <div>
@@ -49,40 +58,45 @@ function Clusters({clusters, phrases}) {
 
       {clusters.map((cluster, index) => (
         <div>
-          <Typography component="span">{index+1}. </Typography>
+          <Typography component="span">{index + 1}. </Typography>
 
           {cluster.map((phraseId, index) => (
             <React.Fragment>
-              {index > 0 && (<Typography component="span"> - </Typography>)}
+              {index > 0 && <Typography component="span"> - </Typography>}
               <Phrase phrase={phraseById[phraseId]} />
             </React.Fragment>
           ))}
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-function Phrase({phrase, component='span'}) {
+function Phrase({ phrase, component = "span" }) {
   let color;
-  if (!('@id' in phrase)) color = 'initial';
-  else if (phrase['is_singleton']) color = 'secondary';
-  else color = 'primary';
-  
-  return <Typography color={color} component={component}>{phrase['#text']}{'@id' in phrase && `[${phrase['@id']}]`}</Typography>;
+  if (!("@id" in phrase)) color = "initial";
+  else if (phrase["is_singleton"]) color = "secondary";
+  else color = "primary";
+
+  return (
+    <Typography color={color} component={component}>
+      {phrase["#text"]}
+      {"@id" in phrase && `[${phrase["@id"]}]`}
+    </Typography>
+  );
 }
 
 const useStyles = makeStyles({
   container: {
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column"
   },
   progress: {
-    alignSelf: 'center',
+    alignSelf: "center"
   },
   text: {
-    display: 'flex',
-    flexDirection: 'row'
+    display: "flex",
+    flexDirection: "row"
   },
   section: {
     marginBottom: 30
